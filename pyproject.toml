@@ -1,0 +1,84 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+  "setuptools",
+]
+
+[project]
+name = "maas-api-v3"
+version = "0.0.1"
+description = "MAAS api v3 design"
+readme = "README.rst"
+maintainers = [
+    {name = "Jacopo Rota", email = "jacopo.r00ta@gmail.com"},
+]
+authors = [
+    {name = "Jacopo Rota", email = "jacopo.r00ta@gmail.com"},
+]
+requires-python = ">=3.10"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+  "fastapi",
+  "passlib[bcrypt]",
+  "pydantic[email]",
+  "python-jose[cryptography]",
+  "python-multipart",
+  "pytz",
+  "SQLAlchemy[postgresql_asyncpg]",
+  "StrEnum", # emulate enum.StrEnum, which is available in Python3.11
+  "ujson", # faster JSON encoding/decoding (for fastapi)
+]
+[project.optional-dependencies]
+testing = [
+  "httpx",
+  "psycopg",
+  "pytest",
+  "pytest-asyncio",
+  "pytest-postgresql",
+]
+uvicorn = [
+  "uvicorn",
+  "uvloop",
+  "watchfiles",
+]
+
+[tool.setuptools.packages.find]
+include = ["maas*"]
+
+[tool.black]
+line-length = 79
+
+[tool.isort]
+combine_as_imports = true
+force_grid_wrap = 2
+force_sort_within_sections = true
+from_first = false
+include_trailing_comma = true
+multi_line_output = 3
+order_by_type = false
+profile = "black"
+use_parentheses = true
+
+[tool.flake8]
+max-line-length = 100
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = [
+  "tests/"
+]
+junit_logging = "all"
+junit_suite_name = "maas-api-v3 backend tests"
+
+[tool.mypy]
+ignore_missing_imports = true
+install_types = true
+non_interactive = true
+plugins = [
+  "pydantic.mypy"
+]
+strict = true
